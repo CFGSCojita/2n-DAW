@@ -1,0 +1,37 @@
+.galeria-productos {
+    /* 1. Activa CSS Grid */
+    display: grid;
+    
+    /* 2. Define 3 columnas flexibles e iguales (fr) */
+    grid-template-columns: 1fr 1fr 1fr; 
+    
+    /* 3. Añade espacio entre las celdas (filas y columnas) */
+    gap: 30px; 
+    
+    /* Estilos estéticos opcionales para visualizar */
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.tarjeta-producto {
+    /* 1. Activa Flexbox para cada tarjeta */
+    display: flex;
+    
+    /* 2. Cambia la dirección del eje principal a Columna (vertical) */
+    flex-direction: column; 
+    
+    /* 3. Distribuye el espacio sobrante a lo largo del eje principal. */
+    /* Esto "empujará" el botón hacia abajo. */
+    justify-content: space-between; 
+    
+    /* Estilos estéticos opcionales para visualizar */
+    border: 1px solid #ccc;
+    padding: 20px;
+    height: 250px; /* Dales una altura fija para ver el efecto de justify-content */
+}
+
+.tarjeta-producto button {
+    /* Fuerza al botón a no encogerse o estirarse */
+    margin-top: 15px;
+    align-self: flex-start; /* Alinea solo este item a la izquierda */
+}
