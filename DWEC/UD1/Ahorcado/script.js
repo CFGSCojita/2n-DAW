@@ -1,6 +1,7 @@
 
 // Declaración de variables.
 const MAX_INTENTOS = 7;
+const TIEMPO_LIMITE = 10;
 let intentosDisponibles = MAX_INTENTOS;
 let errores = 0;
 let palabraOculta = "";
@@ -15,6 +16,7 @@ const intentosEl = document.getElementById("contador");
 const erroresEl = document.getElementById("contador-errores");
 const abecedarioContenedor = document.getElementById("abecedario-contenedor");
 const cronometroEl = document.getElementById("cronometro");
+const mensajeResultadoEl = document.getElementById("mensaje-resultado");
 
 // Declaramos una lista de palabras a adivinar para el juego.
 const listaPalabras = [
@@ -116,8 +118,8 @@ function manejarAdivinanza(letra, elementoBoton) {
         // Estructura de control 'if'.
         // Si no quedan guiones bajos en la palabra oculta, indicamos que el jugador ha ganado.
         if (!palabraOcultaEl.textContent.includes('_')) {
-            alert(`¡Felicidades! Ganaste, la palabra era: ${palabraOculta}.`); // Mostramos una alerta de victoria.
-            terminarJuego(true); // Terminamos el juego con victoria.
+            const mensaje = `¡Felicidades! Ganaste, la palabra era: ${palabraOculta}.`; // Mostramos un mensaje de victoria.
+            terminarJuego(true, mensaje); // Terminamos el juego con victoria.
         }
 
     } else {
@@ -129,8 +131,8 @@ function manejarAdivinanza(letra, elementoBoton) {
         // Estructura de control 'if'.
         // Si no quedan intentos disponibles, indicamos que el jugador ha perdido.
         if (intentosDisponibles <= 0) {
-            alert(`¡Perdiste! La palabra era: ${palabraOculta}.`);
-            terminarJuego(false);
+            const mensaje = `¡Perdiste! La palabra era: ${palabraOculta}.`; // Mostramos un mensaje de derrota.
+            terminarJuego(false, mensaje); // Terminamos el juego con derrota.
         }
     }
 }
@@ -157,13 +159,66 @@ function iniciarCronometro() {
     }, 1000);
 }
 
+// Creamos una función para guardar las estadísticas en el almacenamiento local.
+function guardarEstadisticas(palabra, erroresPartida, tiempoPartida) {
+    const claveRecord = `record_${palabra}`; // Creamos una clave única para cada palabra.
+    const recordGuardadoJSON = localStorage.getItem(claveRecord); // Obtenemos las estadísticas existentes para la palabra.
+
+    // Declaramos una variable para indicar si se debe actualizar el récord.
+    let actualizarRecord = false;
+
+    // Estructura de control 'if'.
+    // Comprobamos si hay un récord guardado y si se debe actualizar.
+    if (!recordGuardadoJSON) {
+        actualizarRecord = true; // No hay récord guardado, por lo que se debe actualizar.
+    } else {
+        const recordGuardado = JSON.parse(recordGuardadoJSON); // Parseamos el JSON para obtener el objeto de estadísticas.
+
+        // Estructura de control 'if'.
+        // Si el número de errores es menor a la cantidad de errores guardada, actualizamos el récord.
+        // Pero si la cantidad de errores es la misma, comparamos si el tiempo es menor a la cantidad de tiempo guardada y de esa manera actualizamos el récord en este caso.
+        if (erroresPartida < recordGuardado.errores) {
+            actualizarRecord = true; // Actualizamos el récord.
+        } else if (erroresPartida === recordGuardado.errores && tiempoPartida < recordGuardado.tiempo) {
+            actualizarRecord = true; // Actualizamos el récord.
+        }
+    }
+
+    // Estructura de control 'if'.
+    // Si se debe actualizar el récord, guardamos las nuevas estadísticas en el almacenamiento local.
+    if (actualizarRecord) {
+        // Creamos un objeto con las nuevas estadísticas.
+        const nuevoRecord = {
+            errores: erroresPartida,
+            tiempo: tiempoPartida
+        };
+        localStorage.setItem(claveRecord, JSON.stringify(nuevoRecord)); // Guardamos el objeto como un string JSON en el almacenamiento local. Usamos stringify() para convertir el objeto a JSON.
+        console.log(`¡Nuevo récord para la palabra "${palabra}" guardado!`);
+    } else {
+        console.log(`No se ha superado el récord para la palabra "${palabra}".`);
+    }
+}
+
 // Creamos una función para terminar el juego.
-function terminarJuego(victoria) {
+function terminarJuego(victoria, mensajeResultado) {
     clearInterval(intervaloCronometro); // Detenemos el cronómetro.
     juegoIniciado = false; // Reiniciamos la variable de estado del juego.
     
+    // Estructura de control 'if'.
+    // Si el jugador ha ganado, guardamos las estadísticas y se lo indicamos con un mensaje.
+    // En caso contrario, solo mostramos el mensaje de derrota.
+    if (victoria) {
+        guardarEstadisticas(palabraOculta, errores, tiempoTranscurrido); // Guardamos las estadísticas.
+        mensajeResultadoEl.classList.add('mensaje-victoria');
+    } else {
+        mensajeResultadoEl.classList.add('mensaje-derrota');
+    }
+
+    mensajeResultadoEl.textContent = mensajeResultado; // Mostramos el mensaje de resultado en la interfaz.
+
     const botones = abecedarioContenedor.querySelectorAll('.letra-boton'); // Seleccionamos todos los botones de letras.
 
+    // Bucle 'for-each'.
     // Por cada uno de los botones, deshabilitamos la interacción.
     botones.forEach(boton => {
         boton.style.pointerEvents = 'none';

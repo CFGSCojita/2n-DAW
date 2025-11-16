@@ -1,0 +1,45 @@
+$green: #234d23;
+$grey: #c3c3c3;
+$blue: #0000ff;
+$pfont: Arial, Helvetica, sans-serif;
+
+body {
+    color: black;
+    background-color: $green;
+}
+
+header {
+    h1 {
+        font-size: 40px;
+    }
+
+    nav {
+        a {
+            padding: 0 15px;
+        }
+    }
+}
+
+main {
+
+    p {
+        color: $grey;
+        font-family: $pfont;
+    }
+
+    section {
+        background-color: darken($green, 10%);
+        &:first-of-type {
+            background-color: $blue;
+        }
+    }
+
+    .card {
+        text-decoration: underline;
+    }
+
+    .card2 {
+        @extend .card;
+        font-style: italic;
+    }
+}

@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme{
+    --color-brand: #4fb286;
+
+    --font-Bruno: sans-serif;
+}
+
+@layer components {       
+    .product{
+        @apply bg-brand p-2 rounded flex items-center max-w-96 md:max-w-100 mb-1 hover:shadow-md hover:opacity-70
+    }
+}

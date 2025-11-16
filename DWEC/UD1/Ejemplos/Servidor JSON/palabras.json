@@ -1,0 +1,24 @@
+{
+    "palabras": [
+        {
+            "id": "1",
+            "palabra": "Jander",
+            "dificultad": "2"
+        },
+        {
+            "id": "2",
+            "palabra": "fantasma",
+            "dificultad": "3"
+        },
+        {
+            "id": "3",
+            "palabra": "Requete",
+            "dificultad": "4"
+        },
+        {
+            "id": "4",
+            "palabra": "Pelota",
+            "dificultad": "1"
+        }
+    ]
+}
