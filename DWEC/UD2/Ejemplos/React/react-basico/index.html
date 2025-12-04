@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Básico</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <h1>React Básico</h1>
+
+    <div id="banner"></div>
+
+    <footer>
+        <p>Pie de página</p>
+    </footer>
+
+    <script type="text/babel">
+
+        const Banner = () => {
+
+            const titulo = "Bienvenidos a React Básico";
+            const subTitulo = "Este es una web para aprender React";
+            const nombre = 'Stefan';
+
+            const handleClick = (nombre) => {
+                console.log('Hola ' + nombre);
+            }
+
+            return (
+                // Comentario
+                // for -> htmlFor
+                <div className="banner">
+                    <h2>{titulo.toUpperCase()}</h2>
+                    <p>{subTitulo}</p>
+                    <button onClick={(e) => {
+                        handleClick(nombre);
+                    }
+                    }>Haz click</button>
+                </div>
+            )
+        }
+
+        ReactDOM.render(<Banner />, document.getElementById('banner'));
+
+    </script>
+</body>
+</html>

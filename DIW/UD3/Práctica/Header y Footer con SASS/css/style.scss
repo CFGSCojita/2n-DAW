@@ -1,0 +1,55 @@
+// Variables para cambiar colores fácil
+$color-fondo: #fef3c7; // Un tono similar al amber-100
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; // Ocupa toda la altura de la pantalla
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: $color-fondo;
+  padding: 1rem;
+  
+  // Flexbox para centrar el menú
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  .logo {
+    position: absolute; // Se coloca a la izquierda sin empujar el menú
+    left: 1rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 1rem; // Separación entre items
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    a {
+      text-decoration: none;
+      color: black;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+.site-content {
+  flex-grow: 1; // Empuja el footer hacia abajo si hay poco contenido
+  padding: 1rem;
+}
+
+.site-footer {
+  background-color: $color-fondo;
+  padding: 1rem;
+  text-align: center;
+}

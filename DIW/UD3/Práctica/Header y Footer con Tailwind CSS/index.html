@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla Header y Footer con Tailwind</title>
+    <link rel="stylesheet" href="css/output.css">
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="sticky top-0 bg-(--color-fondo) p-4 flex justify-center items-center shadow-md">
+        
+        <span class="font-bold text-xl absolute left-4">Logo</span>
+        
+        <nav>
+            <ul class="flex gap-4">
+                <li><a href="#" class="enlaces">Inicio</a></li>
+                <li><a href="#" class="enlaces">Servicios</a></li>
+                <li><a href="#" class="enlaces">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="grow p-4">
+        <h1 class="text-2xl font-bold">Bienvenido</h1>
+        <p class="mt-2">El menú ahora está justo en el centro.</p>
+    </main>
+
+    <footer class="bg-(--color-fondo) p-4 text-center shadow-inner">
+        <p class="text-sm text-gray-700">&copy; 2025 Mi Sitio Web</p>
+    </footer>
+
+</body>
+</html>

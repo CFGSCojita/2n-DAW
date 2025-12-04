@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card {
+  font-family: "Arial", sans-serif;
+  border: 1px solid #ccc;
+  padding: 20px;
+  max-width: 300px;
+}
+
+.card .card_title {
+  color: #3498AA;
+  font-size: 1.5em;
+}
+
+.card .card_desc {
+  color: #555;
+}
+
+.card .btn-primary {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498AA;
+  color: white;
+  font-weight: bold;
+}
+
+.card .btn-primary:hover {
+  background-color: #287583;
+  cursor: pointer;
+}
+
+.card .btn-secondary {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #555;
+  color: white;
+  font-weight: bold;
+}
+
+.card .btn-secondary:hover {
+  background-color: #3c3c3c;
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.status-box, .success, .error {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.success {
+  border-color: green;
+  color: green;
+}
+
+.error {
+  border-color: red;
+  color: red;
+}
+
+.margin-1 {
+  margin: 10px;
+}
+
+.margin-2 {
+  margin: 20px;
+}
+
+.margin-3 {
+  margin: 30px;
+}
+
+@media (max-width: 600px) {
+  .card {
+    max-width: 100%;
+    border: none;
+  }
+}

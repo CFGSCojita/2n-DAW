@@ -9,6 +9,9 @@ let letrasAdivinadas = [];
 let juegoIniciado = false;
 let intervaloCronometro; 
 let tiempoTranscurrido = 0;
+let intervaloCuentaAtras;
+let tiempoRestante = TIEMPO_LIMITE;
+let datosJuego = null;
 
 // Declaración de variables para la manipulación con DOM. Ponemos "El" como nombre al final de cada variable para indicar que es un elemento manipulable.
 const palabraOcultaEl = document.getElementById("palabra-oculta");
@@ -17,16 +20,84 @@ const erroresEl = document.getElementById("contador-errores");
 const abecedarioContenedor = document.getElementById("abecedario-contenedor");
 const cronometroEl = document.getElementById("cronometro");
 const mensajeResultadoEl = document.getElementById("mensaje-resultado");
+const cuentaAtrasEl = document.getElementById("cuenta-atras-el");
+const selectorTemaEl = document.getElementById("selector-tema");
 
 // Declaramos una lista de palabras a adivinar para el juego.
-const listaPalabras = [
-    "JAVASCRIPT",
-    "PROGRAMACION",
-    "DESARROLLO",
-    "HTML",
-    "DOM",
-    "CLASES"
-];
+let listaPalabras = [];
+
+// Declaramos una función asíncrona para cargar los datos del JSON y comenzar el juego.
+async function cargarDatosYJuego() {
+    // Estructura 'try-catch'.
+    // Intentará cargar el archivo JSON y manejar cualquier error que pueda ocurrir.
+    try {
+        const respuesta = await fetch('palabras.json'); // Hacemos una solicitud para obtener el archivo JSON y la guardamos en una variable.
+        const datos = await respuesta.json(); // Convertimos la respuesta en un objeto JSON.
+
+        datosJuego = datos; // Guardamos los datos del juego en la variable global.
+
+        selectorTemaEl.innerHTML = ""; // Limpiamos el selector de temas antes de llenarlo.
+
+        // Bucle 'for-each'.
+        // Recorrerá cada tema en los datos y crea una opción en el selector para cada uno.
+        datos.temas.forEach((tema, index) => {
+            const opcion = document.createElement('option'); // Creamos un elemento 'option' para el selector.
+            opcion.value = index; // Establecemos el valor de la opción como el índice del tema.
+            opcion.textContent = tema.nombre; // Establecemos el texto de la opción como el nombre del tema.
+            selectorTemaEl.appendChild(opcion); // Añadimos la opción al selector de temas.
+        });
+
+        // Añadimos un evento 'change' al selector de temas para cambiar la lista de palabras cuando se seleccione un tema diferente.
+        selectorTemaEl.addEventListener('change', (evento) => {
+            const indiceTema = evento.target.value; // Obtenemos el índice del tema seleccionado.
+            listaPalabras = datosJuego.temas[indiceTema].palabras; // Actualizamos la lista de palabras según el tema seleccionado.
+            iniciarJuego(); // Iniciamos el juego con la nueva lista de palabras.
+        });
+
+        listaPalabras = datosJuego.temas[0].palabras; // Inicializamos la lista de palabras con el primer tema por defecto.
+        iniciarJuego(); // Iniciamos el juego.
+    } catch (e) {
+        console.error("Error al cargar el archivo JSON", e);
+    }
+}
+
+// Creamos una función para reiniciar la cuenta atrás.
+function reiniciarCuentaAtras() {
+
+    // Estructura de control 'if'.
+    // Si ya hay un intervalo de cuenta atrás en ejecución, lo limpiamos.
+    if (intervaloCuentaAtras) {
+        clearInterval(intervaloCuentaAtras); // Limpiamos cualquier intervalo previo.
+    }
+
+    tiempoRestante = TIEMPO_LIMITE; // Reiniciamos el tiempo restante.
+    cuentaAtrasEl.textContent = tiempoRestante; // Actualizamos el contenido del elemento en la interfaz.
+
+    // Iniciamos un nuevo intervalo para la cuenta atrás.
+    intervaloCuentaAtras = setInterval(() => {
+        tiempoRestante--; // Decrementamos el tiempo restante.
+        cuentaAtrasEl.textContent = tiempoRestante; // Actualizamos el contenido del elemento en la interfaz.
+
+        // Estructura de control 'if'.
+        // Si el tiempo restante llega a cero, manejamos la situación de tiempo agotado.
+        if (tiempoRestante <= 0) {
+            clearInterval(intervaloCuentaAtras); // Limpiamos el intervalo de la cuenta atrás.
+
+            errores++; // Incrementamos el contador de errores.
+            intentosDisponibles--; // Decrementamos el contador de intentos disponibles.
+            actualizarInterfazContadores(); // Actualizamos los contadores en la interfaz a través de la función.
+
+            // Estructura de control 'if'.
+            // Si no quedan intentos disponibles, indicamos que el jugador ha perdido.
+            if (intentosDisponibles <= 0) {
+                const mensaje = `¡Perdiste! Se acabó el tiempo. La palabra era ${palabraOculta}.`;
+                terminarJuego(false, mensaje);
+            } else {
+                reiniciarCuentaAtras(); // Reiniciamos la cuenta atrás para el siguiente intento.
+            }
+        }
+    }, 1000);
+}
 
 // Creamos una función para iniciar el juego.
 function iniciarJuego() {
@@ -44,6 +115,14 @@ function iniciarJuego() {
     mostrarPalabraOculta(); // Llamamos a la función para mostrar la palabra oculta en la interfaz.
 
     cronometroEl.textContent = "00:00:00"; // Reiniciamos el cronómetro en la interfaz.
+    mensajeResultadoEl.textContent = ""; // Limpiamos el mensaje de resultado en la interfaz.
+    mensajeResultadoEl.classList.remove('mensaje-victoria', 'mensaje-derrota'); // Eliminamos las clases de mensaje de victoria o derrota.
+
+    tiempoRestante = TIEMPO_LIMITE; // Reiniciamos el tiempo restante.
+    cuentaAtrasEl.textContent = TIEMPO_LIMITE; // Actualizamos el contenido del elemento de cuenta atrás en la interfaz.
+    if (intervaloCuentaAtras) {
+        clearInterval(intervaloCuentaAtras); // Limpiamos cualquier intervalo previo.
+    }
 }
 
 // Creamos una función para actualizar los contadores en la interfaz.
@@ -103,6 +182,8 @@ function manejarAdivinanza(letra, elementoBoton) {
         juegoIniciado = true;
         iniciarCronometro();
     }
+
+    reiniciarCuentaAtras();
 
     elementoBoton.style.pointerEvents = 'none'; // Deshabilitamos el botón para que no se pueda volver a hacer clic en él.
 
@@ -202,6 +283,7 @@ function guardarEstadisticas(palabra, erroresPartida, tiempoPartida) {
 // Creamos una función para terminar el juego.
 function terminarJuego(victoria, mensajeResultado) {
     clearInterval(intervaloCronometro); // Detenemos el cronómetro.
+    clearInterval(intervaloCuentaAtras); // Detenemos la cuenta atrás.
     juegoIniciado = false; // Reiniciamos la variable de estado del juego.
     
     // Estructura de control 'if'.
@@ -226,4 +308,4 @@ function terminarJuego(victoria, mensajeResultado) {
     
 }
 
-document.addEventListener("DOMContentLoaded", iniciarJuego); // Iniciamos el juego cuando el contenido del DOM esté completamente cargado.
+document.addEventListener("DOMContentLoaded", cargarDatosYJuego); // Iniciamos el juego cuando el contenido del DOM esté completamente cargado.

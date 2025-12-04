@@ -1,0 +1,271 @@
+// ==========================================================
+// 1. Variables y Mixins
+// ==========================================================
+$color-primary: #2563eb;
+$color-hover: #1e40af;
+$color-text: #4b5563;
+$color-text-light: #6b7280;
+$color-bg-page: #f9fafb;
+$color-bg-card: #ffffff;
+$color-border-card: #bfdbfe;
+$color-accent: #ef4444;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+
+@mixin centered-y {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin hover-style($bg-color) {
+  padding: 0.5rem;
+  color: $color-text;
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $bg-color;
+  }
+}
+
+// ==========================================================
+// 2. Estilos Base
+// ==========================================================
+* {
+  box-sizing: border-box;
+}
+
+// .page-container (body)
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: $color-bg-page;
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .md-visible {
+    display: none;
+    @media (min-width: $breakpoint-md) {
+      display: block;
+    }
+  }
+
+  // ==========================================================
+  // 3. Header
+  // ==========================================================
+  .main-header {
+    background-color: $color-bg-card;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .menu-button {
+        @include hover-style(lighten($color-bg-page, 5%));
+      }
+
+      .site-title {
+        flex: 1; /* Ocupa espacio */
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: $color-primary;
+        text-decoration: none;
+        transition: color 0.2s;
+        &:hover {
+          color: $color-hover;
+        }
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 1rem;
+
+        .action-button {
+          position: relative;
+          @include hover-style(lighten($color-bg-page, 5%));
+        }
+
+        .cart-count {
+          position: absolute;
+          top: -0.25rem;
+          right: -0.25rem;
+          background-color: $color-accent;
+          color: $color-bg-card;
+          font-size: 0.75rem;
+          font-weight: 700;
+          padding: 0.25rem 0.375rem;
+          border-radius: 9999px;
+          min-width: 1.125rem;
+          text-align: center;
+          line-height: 1;
+        }
+      }
+    }
+
+    .search-bar {
+      margin-top: 0.75rem;
+      position: relative;
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        width: 1rem;
+        height: 1rem;
+        color: #9ca3af;
+        @include centered-y;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        padding-left: 2.5rem;
+        border-radius: 9999px;
+        border: 1px solid #d1d5db;
+        background-color: lighten($color-bg-page, 5%);
+        font-size: 0.875rem;
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px $color-primary;
+        }
+      }
+    }
+  }
+
+  // ==========================================================
+  // 4. Main Content
+  // ==========================================================
+  .main-content {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem;
+    @media (min-width: $breakpoint-md) {
+      padding: 2rem;
+    }
+
+    .page-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .main-grid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+
+      @media (min-width: $breakpoint-lg) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .content-zone {
+        background-color: $color-bg-card;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid $color-border-card;
+
+        .zone-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin-bottom: 0.75rem;
+          color: $color-primary;
+        }
+
+        .zone-description {
+          color: $color-text;
+        }
+      }
+
+      // Estilos específicos para el layout
+      .sidebar-zone {
+        @media (min-width: $breakpoint-lg) {
+          grid-column: span 1;
+          grid-row: span 2;
+        }
+      }
+
+      .main-area-zone {
+        @media (min-width: $breakpoint-lg) {
+          grid-column: span 3;
+        }
+
+        .item-grid-layout {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+          @media (min-width: $breakpoint-md) {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          @media (min-width: $breakpoint-lg) {
+            grid-template-columns: repeat(4, 1fr);
+          }
+
+          .grid-item {
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            text-align: center;
+            background-color: lighten($color-bg-page, 5%);
+          }
+        }
+      }
+
+      .full-width-promo-zone-1 {
+        @media (min-width: $breakpoint-lg) {
+          grid-column: span 3;
+        }
+      }
+
+      .full-width-promo-zone-2 {
+        @media (min-width: $breakpoint-lg) {
+          grid-column: span 4;
+        }
+      }
+    }
+  }
+
+  // ==========================================================
+  // 5. Footer
+  // ==========================================================
+  .main-footer {
+    background-color: $color-bg-card;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    bottom: 0;
+    z-index: 50;
+
+    .mobile-nav {
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem 0;
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.75rem;
+        text-decoration: none;
+        color: $color-text-light;
+        transition: color 0.2s;
+
+        &:hover,
+        &.active {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@layer theme {
+    :root {
+        --color-texto: #1a202c;
+    }
+}
+
+@layer components {
+
+    .contenedor-tarjeta {
+        @apply w-full sm:max-w-xs md:max-w-lg mx-auto shadow-lg rounded-xl p-6 bg-white
+    }
+
+}

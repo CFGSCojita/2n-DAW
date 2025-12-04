@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@layer theme {
+    :root {
+        --color-fondo: rgb(254, 243, 199);
+    }
+}
+
+@layer components {
+    
+    .enlaces {
+        @apply hover:underline;
+    }
+
+}

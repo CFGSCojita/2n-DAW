@@ -1,0 +1,99 @@
+// 1. VARIABLES.
+$primary_color: #3498AA;
+$secondary-color: #555;
+$font-stack: 'Arial', sans-serif;
+$base-spacing: 10px;
+
+// Reinicio de página
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// 2. MIXIN CON PARÁMETROS.
+// Definimos un bloque reutilizable que recibe el color como parámetro.
+@mixin button-style($bg-color) {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: $bg-color;
+    color: white;
+    font-weight: bold;
+
+    &:hover {
+        background-color: darken($bg-color, 10%);
+        cursor: pointer;
+    }
+}
+
+// 3. ANIDAMIENTO (NESTING).
+.card {
+    font-family: $font-stack;
+    border: 1px solid #ccc;
+    padding: $base-spacing * 2; // Uso de OPERADOR aritmético.
+    max-width: 300px;
+
+    // Anidamiento de elementos hijos.
+    .card_title {
+        color: $primary_color;
+        font-size: 1.5em;
+    }
+
+    .card_desc {
+        color: $secondary-color;
+    }
+
+    // Uso de Mixin definido arriba con @include.
+    .btn-primary {
+        @include button-style($primary_color);
+    }
+
+    .btn-secondary {
+        @include button-style($secondary-color);
+    }
+
+    // Referencia al padre con & para pseudo-clases.
+    &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+}
+
+// 4. HERENCIA (@EXTEND)
+// Clase base "placeholder" o común.
+.status-box {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success {
+    @extend .status-box; // Hereda propiedades de .status-box.
+    border-color: green;
+    color: green;
+}
+
+.error {
+    @extend .status-box; // Hereda propiedades de .status-box.
+    border-color: red;
+    color: red;
+}
+
+// 5. BUCLES DE CONTROL
+// Genera clases .margin-1, margin-2, .margin-3 automáticamente.
+@for $i from 1 through 3 {
+    .margin-#{$i} {
+        margin: $base-spacing * $i;
+    }
+}
+
+// EXTRA.
+// Responsive con Media Query.
+// Si la pantalla es menor a 600px, la tarjeta ocupa todo el ancho. 
+@media (max-width: 600px) {
+    .card {
+        max-width: 100%;
+        border: none;
+    }
+}
