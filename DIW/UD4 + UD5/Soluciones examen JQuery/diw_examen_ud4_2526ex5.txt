@@ -1,0 +1,45 @@
+$(document).ready(function() {
+  $('#addTaskButton').on("click",function() {
+   
+    // Create task object and store data using .data()
+    let task = {
+      title: $('#taskTitle').val(),
+      description: $('#taskDescription').val(),
+      priority: $('#taskPriority').val(),
+      completed: false
+    };
+
+    // Append task to todo list
+    let taskElement = $('<div class="task"></div>');
+    taskElement.data('taskData', task); // Store task data
+    taskElement.text(task.title); // Display task title
+
+    //La idea NO era fer això:
+    // let taskElement = $(`<div class="task" data-title=${task.title} data-desc=${task.description}>
+    //   ${task.title}      
+    //   </div>`);
+    
+    $('#todoList').append(taskElement);
+
+    // var taskElement = `<p>${task.title}</p>`;
+    // taskElement.data('taskData', task); // Store task data
+    // taskElement.text(task.title); // Display task title
+    // $('#todoList').html(taskElement);
+
+    // Clear input fields
+    $('#taskTitle').val('');
+    $('#taskDescription').val('');
+    $('#taskPriority').val('low');
+  });
+
+  // Event delegation for dynamically added tasks
+  $('#todoList').on('click', '.task', function() {
+    let taskData = $(this).data('taskData');
+
+    // Example: Display task details in console
+    console.log('Title: ' + taskData.title);
+    console.log('Description: ' + taskData.description);
+    console.log('Priority: ' + taskData.priority);
+    console.log('Completed: ' + taskData.completed);
+  });
+});

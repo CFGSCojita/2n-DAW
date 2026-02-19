@@ -1,0 +1,32 @@
+.comida {
+    position: relative;
+}
+
+.comida img {
+    width: 100%;
+    display: block;
+    border: 2px solid #fff;
+    border-radius: 6px;
+}
+
+.comida .delante {
+    transform: rotateY(90deg);
+    position: absolute;
+    transition: all ease-in 0.2s;
+    transition-delay: 0.2s;
+}
+
+.volteada .delante {
+    transform: rotateY(0deg);
+    transition-delay: 0s;
+}
+
+.comida .detras {
+    transition: all ease-in 0.2s;
+    transition-delay: 0.2s;
+}
+
+.volteada .detras {
+    transform: rotateY(90deg);
+    transition-delay: 0s;
+}

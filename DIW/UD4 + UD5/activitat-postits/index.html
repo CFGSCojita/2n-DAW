@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cat">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activitat Post-its</title>
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+</head>
+<body class="m-0 p-0 min-h-screen">
+    <main class="flex min-h-screen">
+        <div class="flex-1 p-2">
+
+            <!-- Botó nou post-it -->
+            <button class="bg-lime-50 px-4 py-2 mb-1 rounded shadow cursor-pointer" id="btnCrearPostit">Nou post-it</button>
+
+            <!-- Tauler -->
+            <div id="tauler" class="relative flex flex-wrap items-start min-h-screen"></div>
+        </div>
+
+        <div class="flex flex-col w-[680px]">
+            <!-- Contenidor per post-its vermells -->
+            <div id="contenidor-vermell"
+                class="flex-1 bg-gray-200 p-4 text-red-600 border border-black flex flex-wrap content-start gap-2 overflow-y-auto">
+                <p class="w-full mb-2 font-bold">Hi ha <span class="comptador">0</span> post-its vermells.</p>
+            </div>
+
+            <!-- Contenidor per post-its blaus -->
+            <div id="contenidor-blau"
+                class="flex-1 bg-gray-200 p-4 text-blue-600 border border-black border-t-0 flex flex-wrap content-start gap-2 overflow-y-auto">
+                <p class="w-full mb-2 font-bold">Hi ha <span class="comptador">0</span> post-its blaus.</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Diàleg de confirmació -->
+    <div id="dialog-confirmacio" title="Eliminar post-it?" class="hidden">
+        <p class="text-sm text-gray-700 p-4">
+            Estàs segur que vols eliminar aquest post-it?
+        </p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

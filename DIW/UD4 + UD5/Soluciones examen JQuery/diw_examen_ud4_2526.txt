@@ -1,0 +1,188 @@
+  const message = "Hola! Aquest és un missatge de ";
+
+  // Ex 1
+  $('#btn-message').on('click',function () {
+
+    $('#message').text(`${message} ${$('#input-message').val()}`);
+
+    // let input = $('#input-message').val();
+    //$('#message').text(`${message} ${input}`);
+       
+  });  
+
+  $('#input-message').on('keydown', function (e) { 
+    if (e.keyCode == 13) {
+      $('#message').text(`${message} ${$(this).val()}`);
+    }
+  });
+
+  //Versió 2: amb funció
+  // function showMessage() {
+  //   let name = $("#input-message").val();
+  //   $("#message").text("Hola! Aquest és un missatge de " + name);
+  // }
+
+  // $("#btn-message").on("click", showMessage);
+
+  // $("#input-message").on("keyup", function (e) {
+  //   if (e.keyCode === 13) {
+  //     showMessage();
+  //   }
+  // });
+  
+
+  // Ex2
+  // Comptador fora de l'esdeveniment
+  let counter = 1;
+  $('#btn-add-item').on('click', function () {
+    const newItem = $(`<li class="item">Item ${counter}</li>`);
+    // let element = "<li>Element"+counter+"</li>";
+
+    
+    //No crear esdeveniment abans d'afegir al DOM:
+    // newItem.on('click',function () {
+    //   $(this).remove();
+    // });
+
+    $('#list').append(element);
+    counter++;
+
+    //Esdeveniment a una classe...
+    // $('.item').on('click', function () {
+    //   $('.item').remove(); //amb this si, amb la classe, no, eliminaríem tots els items
+    // });
+
+    //Esdeveniment a un id... NO!
+    // $('#item').on('click', function () {
+    //   $(this).remove(); 
+    // }); 
+
+    //Correcte si es fa dins l'esdeveniment, fora no, perquè li encara no existeix.
+    // $('li').on('click', function () {
+    //   $(this).remove();
+    // });
+  });
+
+  // Esdeveniment dins o fora d'aquesta manera funciona igual
+  $('#list').on('click', 'li', function () {
+    $(this).remove();
+  });
+
+  //També bé
+  // $(document).on('click', '.item', function () {
+  //   $(this).remove();
+  // });
+
+  // Ex 3: each
+  $('#btn-names').on('click', function () {
+  
+    const names = [];
+
+    $('#table-users tbody tr').each(function () {
+      const name = $(this).find('td:first').text();
+      names.push(name);
+
+    });
+
+    $('#names').text(names.join(', '));
+
+    //OK també!
+    // $('#table-users tbody tr').find('td:first-of-type').each(function () {
+    //     names.push($(this).text());
+    // });
+    // $('#names').text(names.join(', '));
+
+     //Això també va bé
+    // let nombres = $("#table-users").find("td:first-child");
+    // console.log(nombres);
+
+    // $.each(nombres,function(index, td){
+    //   console.log($(td).text());
+    //   $("#names").append($(td).text() + ", ")
+    // });
+    
+    // També ok
+    // let text = "";
+    // $.each($('#table-users tbody tr td:first-child'), (index, name) =>{
+      
+    //   console.log($(name).text())
+    //   text += $(name).text() + ", ";
+    // }); 
+
+    // $('#names').text(text);
+    
+    // $('#names').html(`<p>${text}</p>`);
+
+  });
+
+  //Ex 3
+  // $("#btn-names").on("click", function () {
+
+  //   let names = [];
+
+  //   $("#table-users tbody tr").each(function () {
+  //     let name = $(this).find("td").eq(0).text();
+  //     names.push(name);
+  //   });
+
+  //   $("#names").text(names.join(", "));
+
+  // });
+
+
+  // Ex 4: Style manipulation
+  // $('#btn-red').on("click", function () {
+  //   $('#text').css('color', 'red');
+  //   $('button').css('background-color', '');
+  //   $(this).css('background-color', 'red');
+
+  // });
+
+  // $('#btn-green').on('click', function () {
+  //   $('#text').css('color', 'green');
+  //   $('button').css('background-color', '');
+  //   $(this).css('background-color', 'green');
+    
+  // });
+
+  // $('#btn-blue').on('click',function () {
+  //   $('#text').css('color', 'blue');
+  //   $('button').css('background-color', '');
+  //   $(this).css('background-color', 'blue');
+  // });
+
+ 
+  //V2:
+  // $("#btn-red, #btn-green, #btn-blue").on("click", function () {
+
+  //   let color = $(this).text().toLowerCase();
+  //   $("#text").css("color", color);
+  //   $("#btn-red, #btn-green, #btn-blue").css("background", "");
+  //   $(this).css("background", color);
+
+  // });
+
+  //OK també
+  // $(document).on("click", "#btn-red, #btn-green, #btn-blue", function(){
+  //   let color = $(this).text();
+    
+  //   $("#text").css({"color": color});
+  // });
+
+  // $('#btn-red').on("click", function () { 
+  //   $('button').css('background-color', '');
+  //   $(this).css('background-color', $(this).text());
+  // });
+
+  // $('#btn-green').on('click', function () {   
+  //   $('button').css('background-color', '');
+  //   $(this).css('background-color', 'green');    
+  // });
+
+  // $('#btn-blue').on('click',function () {
+  //   $('button').css('background-color', '');
+  //   $(this).css('background-color', 'blue');
+  // });
+
+
+

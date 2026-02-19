@@ -1,14 +1,16 @@
 import "./Comida.css";
 
-export default function Comida({ comida, handleEleccion }) {
+export default function Comida({ comida, handleEleccion, volteada, deshabilitado}) {
 
     const handleClick = () => {
-        handleEleccion(comida);
+        if (!deshabilitado) {
+            handleEleccion(comida);
+        }
     }
 
     return (
         <div className="comida">
-            <div>
+            <div className={volteada ? "volteada" : ""}>
                 <img className="delante" src={comida.src} />
                 <img className="detras" src="/img/cubierta.jpg" 
                 onClick={handleClick} />

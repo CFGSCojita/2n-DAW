@@ -1,0 +1,6 @@
+
+/* Estils per a l'error */
+.error {
+    border: 2px solid red;
+    color: red;
+}
