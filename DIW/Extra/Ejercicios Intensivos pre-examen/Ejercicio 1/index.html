@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 - Dashboard SASS</title>
+    <!-- Vincula aquí tu CSS compilado de SASS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Contenedor principal del Dashboard -->
+    <div class="dashboard-container">
+        
+        <!-- Barra lateral -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">PanelPro</div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active">Inicio</a></li>
+                    <li><a href="#">Proyectos</a></li>
+                    <li><a href="#">Equipo</a></li>
+                    <li><a href="#">Ajustes</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Zona de contenido derecha -->
+        <main class="main-content">
+            
+            <!-- Cabecera -->
+            <header class="main-header">
+                <div class="header-search">
+                    <input type="text" placeholder="Buscar proyecto...">
+                </div>
+                <div class="header-profile">
+                    <span>Stefan Cojita</span>
+                    <div class="avatar"></div>
+                </div>
+            </header>
+
+            <!-- Sección de proyectos -->
+            <section class="projects-section">
+                <h2>Mis Proyectos</h2>
+                
+                <!-- Rejilla de tarjetas -->
+                <div class="projects-grid">
+                    
+                    <!-- Tarjeta 1 -->
+                    <article class="project-card">
+                        <div class="card-body">
+                            <h3>E-commerce Alpha</h3>
+                            <p>Desarrollo de la tienda online con pasarela de pago integrada.</p>
+                        </div>
+                        <button class="card-btn">Ver detalles</button>
+                    </article>
+
+                    <!-- Tarjeta 2 -->
+                    <article class="project-card">
+                        <div class="card-body">
+                            <h3>App Móvil Fitness</h3>
+                            <p>Diseño de interfaz para el seguimiento de rutinas de entrenamiento.</p>
+                        </div>
+                        <button class="card-btn">Ver detalles</button>
+                    </article>
+
+                    <!-- Tarjeta 3 -->
+                    <article class="project-card">
+                        <div class="card-body">
+                            <h3>API Rest CRM</h3>
+                            <p>Refactorización de rutas y optimización de consultas a la base de datos.</p>
+                        </div>
+                        <button class="card-btn">Ver detalles</button>
+                    </article>
+
+                    <!-- Tarjeta 4 -->
+                    <article class="project-card">
+                        <div class="card-body">
+                            <h3>Landing Page SaaS</h3>
+                            <p>Maquetación responsiva con animaciones sutiles para conversión.</p>
+                        </div>
+                        <button class="card-btn">Ver detalles</button>
+                    </article>
+
+                    <!-- Tarjeta 5 -->
+                    <article class="project-card">
+                        <div class="card-body">
+                            <h3>Plugin WordPress</h3>
+                            <p>Creación de un complemento a medida para la gestión de reservas.</p>
+                        </div>
+                        <button class="card-btn">Ver detalles</button>
+                    </article>
+
+                    <!-- Tarjeta 6 -->
+                    <article class="project-card">
+                        <div class="card-body">
+                            <h3>Migración Cloud</h3>
+                            <p>Traspaso de servicios locales a arquitectura de contenedores.</p>
+                        </div>
+                        <button class="card-btn">Ver detalles</button>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

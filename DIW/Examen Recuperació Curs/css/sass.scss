@@ -1,64 +1,57 @@
-// Variables
-$gris: #e5e7eb;
-$verd-fort: #3c6300;
+
+$verd: #3c6300;
+$gris_fosc: #e5e7eb;
 $vermell: #dc2626;
-$padding-button: 0.25rem;
-$margin-button: 0.25rem;
-$border: border 1px solid $verd-fort;
 
-// Mixins
-@mixin crearButtonVerd($verd-fort, $padding-button, $margin-button) {
-  background-color: $verd-fort;
-  padding: $padding-button;
-  margin: $margin-button;
+@mixin boto_parametres($background_color, $text_color) {
+    background-color: $background_color;
+    color: $text_color;
+    font-weight: bold;
+    padding: 4px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 
-@mixin crearButtonVermell($vermell, $padding-button, $margin-button) {
-  background-color: $verd-fort;
-  padding: $padding-button;
-  margin: $margin-button;
-}
-
-@mixin crearButtonFavorit() {
-  @include crearButtonVerd();
-}
-
-@mixin crearButtonEliminar() {
-  @include crearButtonVermell();
-}
-
-// Aside amb Nesting
 aside {
-  display: none;
-
-  &.mostra {
-    display: flex;
     flex-direction: column;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    gap: 0.9rem;
-    background-color: $gris;
-    border-bottom: border 1px solid $verd-fort; // Per qualque motiu no s'aplica
-  }
-}
-
-// Responsive
-@media (min-width: 768px) {
-  aside {
+    padding: 15px;
+    background-color: $gris_fosc;
+    display: none;
+    
     h2 {
-      font-weight: bold;
+        font-weight: bold;
+    }
+    
+    label {
+        margin-top: 5px;
+        font-weight: 400;
     }
 
-    // .button-preferit {
-    //     @include crearButtonFavorit($verd-fort,);
-    // }
+    &.show {
+        display: flex;
+    
+    }
+}
 
-    // .button-eliminar {
-    //     @include crearButtonEliminar();
-    // }
-  }
+.btn-eliminar {
+    @include boto_parametres($vermell, white);
+}
+
+.btn-favorit {
+    @include boto_parametres($verd, white);
 }
 
 .product-highlight {
-  border: $border;
+    border: 1px solid $verd;
+}
+
+@media (min-width: 768px) {
+    #menuBtn {
+        display: none;
+    }
+
+    aside {
+        display: flex;
+    }
 }

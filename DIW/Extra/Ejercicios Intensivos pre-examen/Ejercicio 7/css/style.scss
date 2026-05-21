@@ -1,0 +1,65 @@
+// ---- VARIABLES: PALETA DE COLORES ----
+$fondo_aplicacion: #0f172a;
+$fondo_tarjetas: #1e293b;
+$color_principal: #10b981;
+$alerta: #f43f5e;
+$texto_principal: #f8fafc;
+
+// ---- MIXIN ----
+@mixin card_design() {
+    background-color: $fondo_tarjetas;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: 1px solid $fondo_tarjetas;
+    transition: all 0.3s ease;
+}
+
+// ---- RESET ----
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app-container {
+    background-color: $fondo_aplicacion;
+    color: $texto_principal;
+
+    .assets-grid {
+        display: grid;
+        gap: 1.5rem;
+
+        .asset-card {
+            @include card_design();
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .card-body {
+                display: flex;
+                flex-direction: row;
+            }
+
+            &.active {
+                border: 1px solid $color_principal;
+            }
+        }
+
+        @media (min-width: 768px) {
+            & {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    }
+}
+
+.positive {
+    color: $color_principal;
+}
+
+.negative {
+    color: $alerta;
+}

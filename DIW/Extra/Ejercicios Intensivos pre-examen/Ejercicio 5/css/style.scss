@@ -1,0 +1,35 @@
+
+// ---- VARIABLE: COLOR TRANSICIÓN
+$azul_brillante: #376B98;
+
+// ---- RESET ----
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// ---- MIXIN ---- 
+@mixin badge-style($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+    padding: 10px 20px;
+    border-radius: 2px;
+}
+
+.priority-baja {
+    @include badge-style(gray, white)
+}
+
+.priority-media {
+    @include badge-style(blue, rgb(106, 106, 228))
+}
+
+.priority-alta {
+    @include badge-style(red, rgb(230, 81, 81))
+}
+
+#add-task-btn {
+    background: linear-gradient(125deg, #000080, #B2FFFF, $azul_brillante);
+    transition: all 0.3s ease;
+}

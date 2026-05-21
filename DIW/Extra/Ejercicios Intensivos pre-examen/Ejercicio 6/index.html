@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: Pro-Filter & Modals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-cyan-400">Galería de Componentes</h1>
+                <p class="text-slate-400">Prueba final de integración de interfaces.</p>
+            </div>
+            <div class="flex gap-2 bg-slate-800 p-1.5 rounded-xl border border-slate-700">
+                <button class="cat-btn px-4 py-2 rounded-lg text-sm font-medium transition bg-cyan-500 text-slate-950"
+                    data-cat="all">Todos</button>
+                <button
+                    class="cat-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-slate-200"
+                    data-cat="frontend">Frontend</button>
+                <button
+                    class="cat-btn px-4 py-2 rounded-lg text-sm font-medium transition text-slate-400 hover:text-slate-200"
+                    data-cat="backend">Backend</button>
+            </div>
+        </header>
+
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+            <div class="item-card bg-slate-800 border border-slate-700 rounded-xl p-5 transition flex flex-col justify-between"
+                data-category="frontend">
+                <div>
+                    <span class="tech-tag tag-react mb-3">React</span>
+                    <h3 class="text-lg font-bold mb-2">Arquitectura de Componentes</h3>
+                    <p class="text-slate-400 text-sm mb-4">Uso de hooks personalizados y optimización de re-renders.</p>
+                </div>
+                <button
+                    class="view-more-btn w-full bg-slate-700 hover:bg-slate-600 py-2 rounded-lg text-xs font-semibold tracking-wide uppercase transition">Ver
+                    Detalles</button>
+            </div>
+
+            <div class="item-card bg-slate-800 border border-slate-700 rounded-xl p-5 transition flex flex-col justify-between"
+                data-category="backend">
+                <div>
+                    <span class="tech-tag tag-php mb-3">PHP</span>
+                    <h3 class="text-lg font-bold mb-2">API REST con Laravel</h3>
+                    <p class="text-slate-400 text-sm mb-4">Diseño de endpoints seguros, migraciones y controladores
+                        robustos.</p>
+                </div>
+                <button
+                    class="view-more-btn w-full bg-slate-700 hover:bg-slate-600 py-2 rounded-lg text-xs font-semibold tracking-wide uppercase transition">Ver
+                    Detalles</button>
+            </div>
+
+            <div class="item-card bg-slate-800 border border-slate-700 rounded-xl p-5 transition flex flex-col justify-between"
+                data-category="frontend">
+                <div>
+                    <span class="tech-tag tag-sass mb-3">SASS</span>
+                    <h3 class="text-lg font-bold mb-2">Sistemas de Diseño Modulares</h3>
+                    <p class="text-slate-400 text-sm mb-4">Uso de estructuras avanzadas, funciones y preprocesado
+                        limpio.</p>
+                </div>
+                <button
+                    class="view-more-btn w-full bg-slate-700 hover:bg-slate-600 py-2 rounded-lg text-xs font-semibold tracking-wide uppercase transition">Ver
+                    Detalles</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="custom-modal"
+        class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div
+            class="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-start mb-4">
+                <h2 class="text-xl font-bold text-cyan-400" id="modal-title">Título del Modal</h2>
+                <button id="close-modal-btn" class="text-slate-400 hover:text-slate-200 text-lg">✕</button>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6" id="modal-desc">Descripción detallada del elemento
+                seleccionado...</p>
+            <button id="confirm-modal-btn"
+                class="w-full bg-cyan-500 text-slate-950 font-bold py-2.5 rounded-xl text-sm hover:bg-cyan-400 transition">Entendido</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".cat-btn").on("click", function () {
+                $(".cat-btn").removeClass('bg-cyan-500 text-slate-950').addClass('text-slate-400 hover:text-slate-200');
+
+                $(this).addClass('bg-cyan-500 text-slate-950').removeClass('text-slate-400 hover:text-slate-200');
+
+                let valor = $(this).attr('data-cat');
+
+                $(".item-card").each(function () {
+
+                    if (valor === 'all') {
+                        $(this).fadeIn();
+                    } else if (valor === $(this).attr('data-category')) {
+                        $(this).fadeIn();
+                    } else {
+                        $(this).fadeOut();
+                    }
+                });
+
+            });
+
+            $(".view-more-btn").on("click", function () {
+                // Extraemos textos de la tarjeta específica
+                let titulo = $(this).closest('.item-card').find('h3').text();
+                let desc = $(this).closest('.item-card').find('p').text();
+
+                // Los inyectamos en el modal
+                $("#modal-title").text(titulo);
+                $("#modal-desc").text(desc);
+
+                // Transición fluida de Tailwind: quitamos hidden y disparamos opacidad/escala
+                $("#custom-modal").removeClass("hidden");
+                setTimeout(function () {
+                    $("#custom-modal").addClass("opacity-100").removeClass("opacity-0");
+                    $("#custom-modal").find('.transform').addClass("scale-100").removeClass("scale-95");
+                }, 20);
+            });
+
+            function cerrarModal() {
+                $("#custom-modal").addClass("opacity-0").removeClass("opacity-100");
+                $("#custom-modal").find('.transform').addClass("scale-95").removeClass("scale-100");
+
+                // Esperamos a que termine la animación de 300ms antes de ocultarlo del todo
+                setTimeout(function () {
+                    $("#custom-modal").addClass("hidden");
+                }, 300);
+            }
+
+            // Eventos de cierre (Botones eXit y Entendido)
+            $("#close-modal-btn, #confirm-modal-btn").on("click", cerrarModal);
+
+            // Cierre avanzado: Hacer clic fuera del recuadro (en el backdrop oscuro)
+            $("#custom-modal").on("click", function (e) {
+                if ($(e.target).is("#custom-modal")) {
+                    cerrarModal();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

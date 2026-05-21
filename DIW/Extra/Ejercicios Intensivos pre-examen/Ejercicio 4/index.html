@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 - Pro-Panel</title>
+    <!-- Carga aquí Tailwind vía CDN para las utilidades específicas -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tu archivo CSS compilado desde SASS -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
+
+    <div class="app-container">
+        <!-- Barra Lateral (Sidebar) -->
+        <aside class="sidebar">
+            <div class="logo">ProPanel</div>
+            <nav class="menu">
+                <a href="#" class="menu-item active">Dashboard</a>
+                <a href="#" class="menu-item">Proyectos</a>
+                <a href="#" class="menu-item">Rendimiento</a>
+            </nav>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <!-- Barra superior con Tailwind -->
+            <header
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 bg-slate-800 p-4 rounded-xl border border-slate-700">
+                <div>
+                    <h1 class="text-2xl font-bold">Resumen de Proyectos</h1>
+                    <p class="text-slate-400 text-sm">Estado actual de las entregas</p>
+                </div>
+                <div class="flex gap-2">
+                    <button
+                        class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition"
+                        data-status="all">Todos</button>
+                    <button
+                        class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/20 hover:bg-amber-500/20 transition"
+                        data-status="pending">Pendientes</button>
+                    <button
+                        class="filter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500/20 transition"
+                        data-status="completed">Completados</button>
+                </div>
+            </header>
+
+            <!-- Rejilla de Tarjetas (Grid) -->
+            <section class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjeta 1 -->
+                <div class="project-card" data-card-status="completed">
+                    <div class="card-header">
+                        <span class="badge badge-completed">Completado</span>
+                        <button class="toggle-details-btn">👁️</button>
+                    </div>
+                    <h3>Plataforma Web Core</h3>
+                    <p class="desc">Migración del sistema base a arquitectura desacoplada.</p>
+                    <div class="extra-details hidden">
+                        <hr class="border-slate-700 my-3">
+                        <p class="text-xs text-slate-400">Tecnologías: React, Firebase, Tailwind.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="project-card" data-card-status="pending">
+                    <div class="card-header">
+                        <span class="badge badge-pending">Pendiente</span>
+                        <button class="toggle-details-btn">👁️</button>
+                    </div>
+                    <h3>Módulo de Analítica</h3>
+                    <p class="desc">Integración de gráficos en tiempo real y exportación de PDFs.</p>
+                    <div class="extra-details hidden">
+                        <hr class="border-slate-700 my-3">
+                        <p class="text-xs text-slate-400">Tecnologías: D3.js, Node.js, SASS.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="project-card" data-card-status="completed">
+                    <div class="card-header">
+                        <span class="badge badge-completed">Completado</span>
+                        <button class="toggle-details-btn">👁️</button>
+                    </div>
+                    <h3>Optimización SEO</h3>
+                    <p class="desc">Auditoría de Core Web Vitals y mejora de carga en móviles.</p>
+                    <div class="extra-details hidden">
+                        <hr class="border-slate-700 my-3">
+                        <p class="text-xs text-slate-400">Tecnologías: Next.js, SSR, Workbox.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Carga de jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Tu archivo de lógica -->
+    <script>
+        $(document).ready(function () {
+            $(".toggle-details-btn").on("click", function () {
+                $(this).closest('.project-card').find('.extra-details').slideToggle();
+            });
+
+            $(".filter-btn").on("click", function () {
+                let valor = $(this).attr('data-status');
+                $('.project-card').each(function () {
+                    if (valor === 'all') {
+                        $(this).stop(true, true).fadeIn();
+                    } else if (valor === $(this).attr('data-card-status')) {
+                        $(this).stop(true, true).fadeIn();
+                    } else {
+                        $(this).stop(true, true).fadeOut();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

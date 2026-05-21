@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background-color: #6d6df9;
+}
+
+.btn--primary:hover {
+  background-color: #b6b6fc;
+}
+
+.btn--verd {
+  background-color: #68f368;
+}
+
+.btn--verd:hover {
+  background-color: #aff9af;
+}
+
+.btn--vermell {
+  background-color: #f15a5a;
+}
+
+.btn--vermell:hover {
+  background-color: #f7a1a1;
+}

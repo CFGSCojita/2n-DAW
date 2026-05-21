@@ -1,0 +1,30 @@
+
+// ---- MIXIN ----
+@mixin variantes_alerta($color-borde, $color-texto) {
+    border: 1px solid $color-borde;
+    color: $color-texto;
+}
+
+// ---- RESET ----
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.custom-alert {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: light-dark(#121212,#ffff);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.alert-max {
+    @include variantes_alerta(red, light-dark(#eb1414, #ea3a3a));
+}
+
+.alert-min {
+    @include variantes_alerta(green, light-dark(#50b90f, #7fdc45));
+}

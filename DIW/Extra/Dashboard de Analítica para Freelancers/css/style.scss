@@ -1,0 +1,99 @@
+
+$color_primario: #3b82f6;
+$color_fondo_sidebar: #1e293b;
+$transicion_suave: all 0.3s ease;
+
+@mixin borde_distinto($color_borde) {
+    border: 1px solid $color_borde;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr;
+
+    grid-template-areas: 
+        "aside header"
+        "aside main";
+
+    header {
+        grid-area: header;
+    }
+
+    aside {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        grid-area: aside;
+        background-color: $color_fondo_sidebar;
+
+        .menu {
+            ul {
+                list-style: none;
+
+                li {
+                    margin-bottom: 0.5rem;
+
+                    a {
+                        color: #cbd5e1;
+                        text-decoration: none;
+                        display: block;
+                        padding: 0.75rem;
+                        border-radius: 0.5rem;
+                        transition: $transicion_suave;
+
+                        &:hover {
+                            background-color: rgba(255, 255, 255, 0.1);
+                            color: white;
+                        }
+
+                        &:active {
+                            background-color: $color_primario;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    main {
+        grid-area: main;
+    }
+
+    .grid-metricas {
+        padding: 20px;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    &.is-collapsed {
+        grid-template-columns: 60px 1fr;
+        transition: $transicion_suave;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "header"
+        "main";
+    }
+
+    aside {
+        display: none;
+    }
+}

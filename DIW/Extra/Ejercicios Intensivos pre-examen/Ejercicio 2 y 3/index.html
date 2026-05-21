@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 y 3 - Precios Tailwind & jQuery</title>
+    <!-- CDN de Tailwind CSS para la prueba -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- CDN de jQuery para el ejercicio 3 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body class="bg-gray-50 font-sans antialiased"> <!-- Te dejo estas tres clases base para que no te sangren los ojos al empezar -->
+
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        
+        <!-- Cabecera de la sección (Aplica Tailwind aquí) -->
+        <div class="flex flex-col justify-center">
+            <h1 class="text-center text-4xl font-semibold">Nuestros Planes</h1>
+            <p class="text-center text-lg italic">Selecciona la opción que mejor se adapte a tus necesidades de desarrollo.</p>
+        </div>
+
+        <!-- Conmutador / Switch (Para el ejercicio 3 con jQuery) -->
+        <div class="flex justify-center items-center gap-4 my-8">
+            <span class="text-sm font-medium text-gray-700">Mensual</span>
+            <button id="billing-toggle" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 transition-colors duration-300 focus:outline-none">
+                <!-- Este círculo se moverá a la derecha cuando esté activo -->
+                <span id="toggle-circle" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 translate-x-1"></span>
+            </button>
+            <span class="text-sm font-medium text-gray-700">Anual</span>
+        </div>
+
+        <!-- Contenedor de Tarjetas (Aplica Grid responsivo aquí) -->
+        <div class="pricing-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 m-8 gap-8">
+            
+            <!-- Tarjeta 1: Básico -->
+            <div class="plan-card flex flex-col justify-between bg-white rounded-2xl p-8 shadow-xs">
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold text-black">Básico</h3>
+                    <p>Para desarrolladores junior.</p>
+                    <div class="price-wrapper">
+                        <!-- El precio inicial es el mensual -->
+                        <span class="price-amount text-3xl font-extrabold" data-mensual="9€" data-anual="90€">9€</span>
+                        <span class="price-period">/ mes</span>
+                    </div>
+                    <!-- Descuento anual (oculto por defecto al empezar) -->
+                    <span class="discount-badge hidden">¡Ahorra 20%!</span>
+                    
+                    <ul>
+                        <li>1 Proyecto activo</li>
+                        <li>Soporte comunitario</li>
+                        <li>5GB Almacenamiento</li>
+                    </ul>
+                </div>
+                <button class="btn-action bg-indigo-500 text-white w-full rounded p-2 text-center hover:shadow-xs cursor-pointer">Contratar Básico</button>
+            </div>
+
+            <!-- Tarjeta 2: Pro (Destacada) -->
+            <div class="plan-card plan-pro flex flex-col justify-between rounded-2xl p-8 shadow-xs border border-indigo-700 bg-indigo-100">
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold text-black">Pro</h3>
+                    <p>Para profesionales independientes.</p>
+                    <div class="price-wrapper">
+                        <span class="price-amount text-3xl font-extrabold" data-mensual="29€" data-anual="290€">29€</span>
+                        <span class="price-period">/ mes</span>
+                    </div>
+                    <span class="discount-badge hidden">¡Ahorra 20%!</span>
+                    
+                    <ul>
+                        <li>Proyectos ilimitados</li>
+                        <li>Soporte prioritario 24/7</li>
+                        <li>50GB Almacenamiento</li>
+                        <li>Acceso a APIs beta</li>
+                    </ul>
+                </div>
+                <button class="btn-action bg-indigo-500 text-white w-full rounded p-2 text-center hover:shadow-xs cursor-pointer">Contratar Pro</button>
+            </div>
+
+            <!-- Tarjeta 3: Enterprise -->
+            <div class="plan-card flex flex-col justify-between bg-white rounded-2xl p-8 shadow-xs">
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold text-black">Enterprise</h3>
+                    <p>Para agencias y equipos.</p>
+                    <div class="price-wrapper">
+                        <span class="price-amount text-3xl font-extrabold" data-mensual="79€" data-anual="790€">79€</span>
+                        <span class="price-period">/ mes</span>
+                    </div>
+                    <span class="discount-badge hidden">¡Ahorra 20%!</span>
+                    
+                    <ul>
+                        <li>Todo lo del plan Pro</li>
+                        <li>Infraestructura dedicada</li>
+                        <li>Entornos de staging</li>
+                        <li>SLA garantizado</li>
+                    </ul>
+                </div>
+                <button class="btn-action bg-indigo-500 text-white w-full rounded p-2 text-center hover:shadow-xs cursor-pointer">Contratar Enterprise</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Tu script de jQuery para el Ejercicio 3 irá aquí abajo -->
+    <script>
+        $(document).ready(function() {
+            $('#billing-toggle').on("click", function() {
+                $(this).toggleClass('bg-indigo-600');
+
+                if ($(this).hasClass('bg-indigo-600')) {
+                    $('.price-amount').each(function() {
+                        let valor = $(this).attr('data-anual');
+                        $(this).text(valor);
+                    })
+
+                    $('.price-period').each(function() {
+                        $(this).text('/ año');
+                    })
+
+                    $('.discount-badge').fadeIn();
+
+                } else {
+                    $('.price-amount').each(function() {
+                        let valor = $(this).attr('data-mensual');
+                        $(this).text(valor);
+                    })
+
+                    $('.price-period').each(function() {
+                        $(this).text('/ mes');
+                    })
+
+                    $('.discount-badge').fadeOut();
+                }
+
+                $("#toggle-circle").toggleClass('translate-x-6');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+
+// ---- MAPA ----
+$tech-colors: (
+    react: #61dafb,
+    php: #777bb4,
+    sass: #cc6699
+);
+
+// ---- RESET ----
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// ---- BUCLE PARA CREAR CLASES PREDEFINIDDAS ----
+@each $tech, $color in $tech-colors {
+    .tag-#{$tech} {
+        background-color: rgba($color, 0.1);
+        color: $color;
+        font-size: small;
+        padding: 10px 20px;
+        border: 1px solid $color;
+    }
+}

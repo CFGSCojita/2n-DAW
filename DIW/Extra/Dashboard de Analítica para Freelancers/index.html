@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Analítica para Freelancers - Stefan Cojita</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="font-mono">
+    <header class="p-4 border-b flex gap-4 items-center">
+        <label for="menu-toggle" class="boton-hamburguesa cursor-pointer p-2 bg-gray-200 rounded">☰</label>
+        <input type="text" placeholder="Buscar tarea..." class="border p-2 rounded w-64 focus:ring-2 focus:ring-indigo-400">
+    </header>
+    <aside class="bg-slate-800 text-white p-4">
+        <nav class="menu">
+            <h2 class="text-xs uppercase text-slate-400 font-bold mb-4">DASHBOARD</h2>
+            <ul>
+                <li><a href="#">Proyectos</a></li>
+                <li><a href="#">Estadísticas</a></li>
+                <li><a href="#">Configuración</a></li>
+            </ul>
+        </nav>
+        <section class="seccion-usuario">
+            <div class="avatar rounded-full w-10 h-10">
+                <img src="https://images.icon-icons.com/1378/PNG/512/avatardefault_92824.png" alt="avatar"/>
+            </div>
+            <h3 class="text-xs text-slate-400">Admin - Stefan Cojita</h3>
+        </section>
+    </aside>
+    <main>
+        <section class="grid-metricas flex flex-wrap gap-4 justify-between">
+            <article class="card flex-grow font-bold text-lg text-center hover:border-indigo-500">
+                <h3>Ingresos</h3>
+                <p class="value font-bold italic">$2,400</p>
+            </article>
+            <article class="card flex-grow font-bold text-lg text-center">
+                <h3>Proyectos</h3>
+                <p class="value font-semibold">12</p>
+            </article>
+            <article class="card flex-grow font-bold text-lg text-center">
+                <h3>Horas</h3>
+                <p class="value font-semibold">160h</p>
+            </article>
+        </section>
+        <div class="lista-tareas p-6 mt-4 bg-gray-50 rounded-lg shadow-inner">
+            <h2 class="text-xl font-bold mb-4">Tareas pendientes</h2>
+            <ul class="space-y-2">
+                <li class="p-2 bg-white rounded border border-gray-200">Registrar incidencias</li>
+                <li class="p-2 bg-white rounded border border-gray-200">Informar al cliente</li>
+                <li class="p-2 bg-white rounded border border-gray-200">Verificar estado</li>
+                <li class="p-2 bg-white rounded border border-gray-200">Asegurar el funcionamiento</li>
+            </ul>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>

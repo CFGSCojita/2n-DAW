@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.tag-react {
+  background-color: rgba(97, 218, 251, 0.1);
+  color: #61dafb;
+  font-size: small;
+  padding: 10px 20px;
+  border: 1px solid #61dafb;
+}
+
+.tag-php {
+  background-color: rgba(119, 123, 180, 0.1);
+  color: #777bb4;
+  font-size: small;
+  padding: 10px 20px;
+  border: 1px solid #777bb4;
+}
+
+.tag-sass {
+  background-color: rgba(204, 102, 153, 0.1);
+  color: #cc6699;
+  font-size: small;
+  padding: 10px 20px;
+  border: 1px solid #cc6699;
+}

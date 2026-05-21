@@ -1,0 +1,80 @@
+
+// ---- VARIABLES: COLORES ----
+$fondo_general: #f4f6f9;
+$color_barra_lateral: #1e293b;
+$color_texto_sidebar: #94a3b8;
+$color_blanco: #ffff;
+$color_primary: #6366f1;
+$color_texto_principal: #0f172a;
+$color_texto_secundario: #64748b;
+
+// ---- MIXIN ----
+@mixin card_design() {
+    background-color: $color_blanco;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+}
+
+// ---- RESET ----:
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    .dashboard-container {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        min-height: 100vh;
+        overflow: hidden;
+
+        .sidebar {
+            background-color: $color_barra_lateral;
+        }
+
+        .main-content {
+            display: grid;
+            background-color: $fondo_general;
+            grid-template-rows: 70px 1fr;
+
+            .main-header {
+                display: flex;
+                justify-content: space-between;
+                min-height: 70px;
+                background-color: $color_blanco;
+            }
+
+            .projects-section {
+                .projects-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 24px;
+
+                    .project-card {
+                        display: flex;
+                        flex-direction: column;
+                        
+                        @include card_design();
+
+                        .card-btn {
+                            margin-top: auto;
+                            background-color: $color_primary;
+                            color: $color_blanco;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

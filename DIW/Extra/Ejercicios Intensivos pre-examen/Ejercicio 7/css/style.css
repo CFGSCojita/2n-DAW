@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+.app-container .assets-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.app-container .assets-grid .asset-card {
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 10px 20px;
+  border: 1px solid #1e293b;
+  transition: all 0.3s ease;
+}
+
+.app-container .assets-grid .asset-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-container .assets-grid .asset-card .card-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.app-container .assets-grid .asset-card.active {
+  border: 1px solid #10b981;
+}
+
+@media (min-width: 768px) {
+  .app-container .assets-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.positive {
+  color: #10b981;
+}
+
+.negative {
+  color: #f43f5e;
+}

@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body .dashboard-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+body .dashboard-container .sidebar {
+  background-color: #1e293b;
+}
+
+body .dashboard-container .main-content {
+  display: grid;
+  background-color: #f4f6f9;
+  grid-template-rows: 70px 1fr;
+}
+
+body .dashboard-container .main-content .main-header {
+  display: flex;
+  justify-content: space-between;
+  min-height: 70px;
+  background-color: #ffff;
+}
+
+body .dashboard-container .main-content .projects-section .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+body .dashboard-container .main-content .projects-section .projects-grid .project-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body .dashboard-container .main-content .projects-section .projects-grid .project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+body .dashboard-container .main-content .projects-section .projects-grid .project-card .card-btn {
+  margin-top: auto;
+  background-color: #6366f1;
+  color: #ffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+}

@@ -1,0 +1,33 @@
+
+@mixin configurar_boton($color_base) {
+    background-color: $color_base;
+
+    &:hover {
+        background-color: lighten($color_base, 15%);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+
+    &--primary {
+        @include configurar_boton(rgb(109, 109, 249));
+    }
+
+    &--verd {
+        @include configurar_boton(rgb(104, 243, 104));
+    }
+
+    &--vermell {
+        @include configurar_boton(rgb(241, 90, 90));
+    }
+}

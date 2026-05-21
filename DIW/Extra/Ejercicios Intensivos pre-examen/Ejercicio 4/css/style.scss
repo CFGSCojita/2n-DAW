@@ -1,0 +1,43 @@
+@use 'components';
+
+// ---- VARIABLES: COLORES ----
+$fondo_tarjeta: #1e293b;
+$borde: #334155;
+
+// ---- MIXIN ----
+@mixin card_decoration() {
+    padding: 10px 20px;
+    background-color: $fondo_tarjeta;
+    border: 1px solid $borde;
+    transition: all 0.3s ease;
+}
+
+// ---- RESET ----
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app-container {
+    display: grid;
+
+    .project-card {
+        @include card_decoration();
+
+        &:hover {
+            transform: translateY(-4px);
+            border: 1px solid #64748b;
+        }
+    }
+}
+
+.is-collapsed {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .app-container {
+        grid-template-columns: 260px 1fr;
+    }
+}
